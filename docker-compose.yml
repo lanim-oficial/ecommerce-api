@@ -1,7 +1,6 @@
 name: ecommerce-api
 
 services:
-  # Servicio de la Base de Datos
   db:
     image: postgres:15-alpine
     container_name: database-container
@@ -12,30 +11,13 @@ services:
     ports:
       - "${DB_PORT}:5432"
     volumes:
-      - datos-postgres:/var/lib/postgresql/data
-    networks:
-      - ecommerce-network
-
-  # Servicio de tu aplicación Spring Boot
-  backend:
-    build: . # 💡 CLAVE: Indica que use el Dockerfile que está en esta misma carpeta
-    container_name: ecommerce-api-container
-    ports:
-      - "${APP_PORT}:8080"
-    environment:
-      # Recuerda usar el nombre del servicio 'db' en la URL de conexión
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${DB_NAME}
-      - SPRING_DATASOURCE_USERNAME=${DB_USER}
-      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
-    depends_on:
-      - db # Espera a que la base de datos esté lista antes de compilar/correr
+      - postgres-data:/var/lib/postgresql/data
     networks:
       - ecommerce-network
 
 volumes:
-  datos-postgres:
+  postgres-data:
 
 networks:
-  red-proyecto:
+  ecommerce-network:
     driver: bridge

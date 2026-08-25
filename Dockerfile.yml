@@ -1,22 +1,23 @@
-# --- ETAPA 1: Compilación ---
-# Usamos una imagen que tiene Java y Maven instalados para construir el proyecto
-FROM maven:3.9-eclipse-temurin-17-alpine AS build
+# --- STEP 1: Compilation ---
+FROM maven:3.9-eclipse-temurin-21-alpine AS build
 WORKDIR /ecommerce-api
   
-  # Copiamos el archivo de configuración de Maven y el código fuente
+  # Copy the master parent configuration
 COPY pom.xml .
-COPY src ./src
+
+ # Copy submodules and sub-apps explicitly
+COPY apps ./apps/
+COPY modules ./modules/
   
-  # Compilamos el proyecto saltándonos los tests para ir más rápido
+  # Compile the whole multi-module project
 RUN mvn clean package -DskipTests
   
-  # --- ETAPA 2: Imagen Final ---
-  # Usamos una imagen limpia y pequeña que solo tiene el entorno de ejecución (JRE)
-FROM eclipse-temurin:17-jre-alpine
-WORKDIR /app
+  # --- STEP 2: Final Runtime Image ---
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /ecommerce-api
   
-  # Copiamos el archivo .jar generado en la ETAPA 1 (fíjate en el --from=build)
-COPY --from=build /app/target/*.jar app.jar
+  # Copy the finished fat JAR file from the monolith-app build target directory
+COPY --from=build /ecommerce-api/apps/monolith-app/target/*.jar app.jar
 
 EXPOSE 8080
 

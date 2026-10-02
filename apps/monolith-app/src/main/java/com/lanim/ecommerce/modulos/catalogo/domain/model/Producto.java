@@ -17,10 +17,10 @@ public class Producto {
 
     public Producto(String nombre, Money precio, Long stock, String descripcion){
         this.id = UUID.randomUUID();
-        if(nombre.isBlank()){
-            throw new IllegalArgumentException("no puede ser un string vacio");
+        if(nombre == null || nombre.isBlank()){
+            throw new IllegalArgumentException("no puede ser un string vacio ni nulo");
         }
-        this.nombre = Objects.requireNonNull(nombre, "El nombre no puede ser nulo");
+        this.nombre = nombre;
         this.imagenes = new ArrayList<Imagen>();
         this.precio = Objects.requireNonNull(precio, "El precio no puede ser nulo");
         if(stock < 0){

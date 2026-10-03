@@ -2,6 +2,7 @@ package com.lanim.ecommerce.modulos.catalogo.application.usecases;
 
 import com.lanim.ecommerce.common.valueobjects.Money;
 import com.lanim.ecommerce.modulos.catalogo.application.dtos.commands.CrearProductoCommand;
+import com.lanim.ecommerce.modulos.catalogo.application.dtos.out.CrearProductoOutputDto;
 import com.lanim.ecommerce.modulos.catalogo.application.ports.in.CrearProductoInputPort;
 import com.lanim.ecommerce.modulos.catalogo.application.ports.out.ProductoPort;
 import com.lanim.ecommerce.modulos.catalogo.domain.model.Producto;
@@ -14,7 +15,7 @@ public class CrearProductoUseCase implements CrearProductoInputPort {
     }
 
     @Override
-    public Producto execute(CrearProductoCommand command) {
+    public CrearProductoOutputDto execute(CrearProductoCommand command) {
         if(command == null){
             throw new IllegalArgumentException("el comando no puede ser nulo");
         }

@@ -1,11 +1,12 @@
 package com.lanim.ecommerce.modulos.catalogo.domain.model;
 
-import com.lanim.ecommerce.common.valueobjects.Money;
+import com.lanim.ecommerce.common.domain.Discount;
+import com.lanim.ecommerce.common.domain.Money;
 
 import java.math.BigDecimal;
 import java.util.*;
 
-public class Producto {
+public class  Producto {
     private UUID id;
     private String nombre;
     private List<Imagen> imagenes;
@@ -15,22 +16,58 @@ public class Producto {
     private Discount descuento;
     private boolean publicado;
 
-    public Producto(String nombre, Money precio, Long stock, String descripcion){
-        this.id = UUID.randomUUID();
-        if(nombre == null || nombre.isBlank()){
+    private Producto(UUID id, String nombre, List<Imagen> imagenes, Money precio, Long stock, String descripcion, Discount descuento, boolean publicado) {
+        this.id = id;
+        this.nombre = nombre;
+        this.imagenes = imagenes;
+        this.precio = precio;
+        this.stock = stock;
+        this.descripcion = descripcion;
+        this.descuento = descuento;
+        this.publicado = publicado;
+    }
+
+    public static Producto createProduct(String nombre, Money precio, Long stock, String descripcion) {
+        if (nombre == null || nombre.isBlank()){
             throw new IllegalArgumentException("no puede ser un string vacio ni nulo");
         }
-        this.nombre = nombre;
-        this.imagenes = new ArrayList<Imagen>();
-        this.precio = Objects.requireNonNull(precio, "El precio no puede ser nulo");
-        if(stock < 0){
+
+        if (stock < 0){
             throw new IllegalArgumentException("el stock no puede ser negativo");
         }
-        this.stock = stock;
-        this.descripcion = Objects.requireNonNull(descripcion, "El precio no puede ser nulo");
 
-        this.descuento = new Discount(BigDecimal.ZERO);
-        this.publicado = false;
+        return new Producto(
+                UUID.randomUUID(),
+                nombre,
+                new ArrayList<Imagen>(),
+                Objects.requireNonNull(precio, "El precio no puede ser nulo"),
+                stock,
+                Objects.requireNonNull(descripcion, "La descripción no puede ser nula"),
+                new Discount(BigDecimal.ZERO),
+                false
+        );
+    }
+
+    public static Producto retrieveProduct(
+            UUID id,
+            String name,
+            List<Imagen> images,
+            Money price,
+            Long stock,
+            String description,
+            Discount discount,
+            boolean shared
+    ) {
+        return new Producto(
+                id,
+                name,
+                images,
+                price,
+                stock,
+                description,
+                discount,
+                shared
+        );
     }
 
     public Long agregarStock (Long cantidad){

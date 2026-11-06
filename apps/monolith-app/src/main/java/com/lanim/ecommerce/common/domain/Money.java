@@ -1,8 +1,7 @@
-package com.lanim.ecommerce.common.valueobjects;
+package com.lanim.ecommerce.common.domain;
 
 import java.math.BigDecimal;
 import java.util.Currency;
-import java.util.Objects;
 
 public record Money(BigDecimal amount, Currency currency){
     public Money {

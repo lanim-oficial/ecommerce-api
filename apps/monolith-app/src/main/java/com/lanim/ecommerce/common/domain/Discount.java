@@ -1,6 +1,4 @@
-package com.lanim.ecommerce.modulos.catalogo.domain.model;
-
-import com.lanim.ecommerce.common.valueobjects.Money;
+package com.lanim.ecommerce.common.domain;
 
 import java.math.BigDecimal;
 

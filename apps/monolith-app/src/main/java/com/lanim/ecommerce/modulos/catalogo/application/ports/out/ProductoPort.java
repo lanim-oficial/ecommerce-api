@@ -4,6 +4,6 @@ import com.lanim.ecommerce.modulos.catalogo.application.dtos.out.CrearProductoOu
 import com.lanim.ecommerce.modulos.catalogo.domain.model.Producto;
 
 public interface ProductoPort {
-    CrearProductoOutputDto addProduct(Producto producto);
+    Producto addProduct(Producto producto);
     boolean existsByName(String nombre);
 }

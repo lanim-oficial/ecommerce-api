@@ -7,7 +7,6 @@ COPY pom.xml .
 
  # Copy submodules and sub-apps explicitly
 COPY apps ./apps/
-COPY modules ./modules/
   
   # Compile the whole multi-module project
 RUN mvn clean package -DskipTests

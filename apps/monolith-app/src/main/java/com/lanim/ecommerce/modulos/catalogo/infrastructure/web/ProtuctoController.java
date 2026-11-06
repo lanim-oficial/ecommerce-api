@@ -31,7 +31,7 @@ public class ProtuctoController {
     public ResponseEntity<CrearProductoResponse> crearProducto(@RequestBody @Valid CrearProductoRequest request) {
         CrearProductoCommand command = mapper.requestToCommand(request);
         CrearProductoOutputDto productoCreado = crearProductoInputPort.execute(command);
-        CrearProductoResponse response= mapper.outputDtoToResponse(productoCreado);
+        CrearProductoResponse response = mapper.outputDtoToResponse(productoCreado);
 
         URI ubicacion = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

@@ -1,7 +1,6 @@
 package com.lanim.ecommerce.modulos.catalogo.application.dtos.out;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.UUID;
 
 public record CrearProductoOutputDto(

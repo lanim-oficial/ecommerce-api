@@ -176,6 +176,34 @@ public class  Producto {
         }
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public List<Imagen> getImagenes() {
+        return imagenes;
+    }
+
+    public Long getStock() {
+        return stock;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public Discount getDescuento() {
+        return descuento;
+    }
+
+    public boolean isPublicado() {
+        return publicado;
+    }
+
     public Money getPrecio() {
         return precio;
     }

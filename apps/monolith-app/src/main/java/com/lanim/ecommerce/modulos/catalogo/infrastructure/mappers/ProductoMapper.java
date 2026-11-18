@@ -23,6 +23,8 @@ public interface ProductoMapper {
     CrearProductoCommand requestToCommand(CrearProductoRequest request);
     CrearProductoResponse outputDtoToResponse(CrearProductoOutputDto response);
     ProductoJpaEntity domainToJpaEntity(Producto producto);
+    @Mapping(source = "precio.amount", target = "amount")
+    @Mapping(source = "precio.currency", target = "currency")
     CrearProductoOutputDto domainToOutputDto(Producto producto);
     CrearProductoOutputDto jpaEntityToOutputDto(ProductoJpaEntity productoJpaEntity);
     @Mapping(source = "currency" , target = "currencyCode")
